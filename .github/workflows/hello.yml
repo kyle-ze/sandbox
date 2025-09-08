@@ -10,5 +10,15 @@ jobs:
     outputs:
       object: hello
     steps:
-      - uses: actions/checkout@v3
-      - run: make
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build
+        run: make
+      - name: Copy files to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: hello
+          target: "/home/${{ secrets.EC2_USER }}/"
