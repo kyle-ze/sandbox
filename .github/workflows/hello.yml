@@ -1,0 +1,14 @@
+name: Hello
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      object: hello
+    steps:
+      - uses: actions/checkout@v3
+      - run: make
